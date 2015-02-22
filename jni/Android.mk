@@ -1,0 +1,21 @@
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := harbour
+LOCAL_SRC_FILES := $(HDROIDGUI)/lib/armeabi/libharbour.so
+LOCAL_EXPORT_C_INCLUDES := $(HRB_INC)
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := h4droida
+LOCAL_SRC_FILES := $(HDROIDGUI)/lib/libh4droida.a
+include $(PREBUILT_STATIC_LIBRARY)
+include $(CLEAR_VARS)
+
+LOCAL_CFLAGS := -I$(HRB_INC)
+LOCAL_SHARED_LIBRARIES := harbour
+LOCAL_MODULE := h4droid
+LOCAL_SRC_FILES := $(SRC_FILES)
+LOCAL_STATIC_LIBRARIES := h4droida
+
+include $(BUILD_SHARED_LIBRARY)

@@ -1,0 +1,11 @@
+
+bin/*
+lib/*
+libs/*
+obj/*
+
+*.a
+*.o
+*.so
+*.log
+*.out
