@@ -11,7 +11,7 @@ FUNCTION HDroidMain
    
          BEGIN LAYOUT oLayH1 HORIZONTAL SIZE MATCH_PARENT,WRAP_CONTENT
 
-         EDITBOX oEdit1 HINT "Input an expression" SIZE 0,MATCH_PARENT
+         EDITBOX oEdit1 HINT "Input an expression" SIZE 0,MATCH_PARENT ON KEYDOWN {|n|onKey(n,oEdit1,oText1)}
 
          BUTTON oBtn1 TEXT "Ok" TEXTCOLOR 255 SIZE WRAP_CONTENT,WRAP_CONTENT ;
               ON CLICK {||onBtn1(oEdit1,oText1)}
@@ -42,3 +42,10 @@ STATIC Function OnBtn1( oEdit1, oText1 )
 
    RETURN "1"
 
+STATIC Function OnKey( nKey, oEdit1, oText1 )
+
+   IF nKey == 66     
+      RETURN OnBtn1( oEdit1, oText1 )
+   ENDIF
+
+   RETURN "0"
