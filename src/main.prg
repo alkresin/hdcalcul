@@ -5,7 +5,7 @@ FUNCTION HDroidMain
 
    LOCAL oActivity, oLayV, oLayH1, oBtn1, oEdit1, oText1
 
-   ACTIVITY oActivity TITLE "Calculator"
+   INIT WINDOW oActivity TITLE "Calculator"
    
       BEGIN LAYOUT oLayV SIZE MATCH_PARENT,MATCH_PARENT
    
