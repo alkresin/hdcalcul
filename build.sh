@@ -4,7 +4,7 @@
 
 ./clear.sh
 
-$HRB_BIN/harbour src/main.prg -q -i$HRB_INC -i$HDROIDGUI/src/include -ojni/
+$HRB_BIN/harbour src/main.prg -q -i$HRB_INC -i$HDROIDGUI/src/include -i$HRB_INC -ojni/
 if [ "$?" -eq 0 ]
 then
 export NDK_LIBS_OUT=lib

@@ -1,7 +1,7 @@
 @call setenv
 @call clear
 
-@harbour src\main.prg /q /i%HDROIDGUI%\src\include /ojni\
+@%HRB_BIN%\harbour src\main.prg /q /i%HDROIDGUI%\src\include /i%HRB_INC% /ojni\
 @if errorlevel 1 goto end
 
 @set NDK_LIBS_OUT=lib
