@@ -75,9 +75,9 @@ STATIC Function OnBtnCalc( oEdit1, oText1 )
    END SEQUENCE
    ErrorBlock( bOldError )
 
-   oText1:SetText( Iif( xRez == Nil, "Nil", Iif( cType := Valtype(xRez)=="A", "Array", ;
+   oText1:SetText( Iif( xRez == Nil, "Nil", Iif( (cType := Valtype(xRez))=="A", "Array", ;
          Iif( cType == "O", "Object", ;
-         Transform( xRez, "@B" ) ) + Chr(10)+Chr(13) + oText1:GetText() ) ) )
+         Transform( xRez, "@B" ) ) ) ) + Chr(10)+Chr(13) + oText1:GetText() )
 
    IF lRes
       IF nHistLen < HISTORY_SIZE_MAX
