@@ -50,7 +50,7 @@ STATIC Function OnBtnHist( lBack, oEdit1 )
    RETURN "1"
 
 STATIC Function OnBtnCalc( oEdit1, oText1 )
-   LOCAL s, xRez, bOldError, lRes := .T., n, i, cname
+   LOCAL s, xRez, bOldError, lRes := .T., n, i, cname, cType
    STATIC aVars := Nil
 
    IF !Empty( aVars )
@@ -75,8 +75,9 @@ STATIC Function OnBtnCalc( oEdit1, oText1 )
    END SEQUENCE
    ErrorBlock( bOldError )
 
-   oText1:SetText( Iif( xRez == Nil, "Nil", Iif( Valtype(xRez)=="A", "Array", ;
-         Transform( xRez, "@B" ) ) + Chr(10)+Chr(13) + oText1:GetText() ) )
+   oText1:SetText( Iif( xRez == Nil, "Nil", Iif( cType := Valtype(xRez)=="A", "Array", ;
+         Iif( cType == "O", "Object", ;
+         Transform( xRez, "@B" ) ) + Chr(10)+Chr(13) + oText1:GetText() ) ) )
 
    IF lRes
       IF nHistLen < HISTORY_SIZE_MAX
