@@ -6,22 +6,27 @@
 
 FUNCTION HDroidMain
 
-   LOCAL oActivity, oLayV, oLayH1, oBtn1, oBtn2, oBtn3, oEdit1, oText1
+   LOCAL oActivity, oFont, oLayV, oLayH1, oBtn1, oBtn2, oBtn3, oEdit1, oText1
    PUBLIC aHistory := Array( HISTORY_SIZE_MAX ), nHistLen := 0, nHistCurr := 1
 
+   PREPARE FONT oFont HEIGHT 12
    INIT WINDOW oActivity TITLE "Calculator"
-   
+
+   MENU
+      MENUITEM "Version" ACTION hd_MsgInfo(hb_Version())
+      MENUITEM "Exit" ACTION hd_calljava_s_v( "exit:")
+   ENDMENU
       BEGIN LAYOUT oLayV BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT
 
          EDITBOX oEdit1 HINT "Input an expression" ON KEYDOWN {|n|onKey(n,oEdit1,oText1)}
                
-         BEGIN LAYOUT oLayH1 HORIZONTAL SIZE MATCH_PARENT,WRAP_CONTENT
+         BEGIN LAYOUT oLayH1 HORIZONTAL SIZE MATCH_PARENT,32
 
-         BUTTON oBtn2 TEXT " < " TEXTCOLOR 255 SIZE WRAP_CONTENT,WRAP_CONTENT ;
+         BUTTON oBtn2 TEXT " < " TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
                ON CLICK {||onBtnHist(.T.,oEdit1)}
-         BUTTON oBtn1 TEXT "Ok" TEXTCOLOR 255 SIZE 0,WRAP_CONTENT ;
+         BUTTON oBtn1 TEXT "Ok" TEXTCOLOR 255 SIZE 0,MATCH_PARENT FONT oFont ;
                ON CLICK {||onBtnCalc(oEdit1,oText1)}
-         BUTTON oBtn3 TEXT " > " TEXTCOLOR 255 SIZE WRAP_CONTENT,WRAP_CONTENT ;
+         BUTTON oBtn3 TEXT " > " TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
                ON CLICK {||onBtnHist(.F.,oEdit1)}
 
          END LAYOUT oLayH1
@@ -75,9 +80,9 @@ STATIC Function OnBtnCalc( oEdit1, oText1 )
    END SEQUENCE
    ErrorBlock( bOldError )
 
-   oText1:SetText( Iif( xRez == Nil, "Nil", Iif( (cType := Valtype(xRez))=="A", "Array", ;
+   oText1:SetText( Iif( xRez == Nil, "Nil", Iif( (cType:=Valtype(xRez))=="A", "Array", ;
          Iif( cType == "O", "Object", ;
-         Transform( xRez, "@B" ) ) ) ) + Chr(10)+Chr(13) + oText1:GetText() )
+         Transform( xRez, "@B" ) ) + Chr(10)+Chr(13) + oText1:GetText() ) ) )
 
    IF lRes
       IF nHistLen < HISTORY_SIZE_MAX
