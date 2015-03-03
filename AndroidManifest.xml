@@ -12,14 +12,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
          </intent-filter>
       </activity>
-      <activity
-         android:name="su.harbour.hdcalcul.DopActivity"
-         android:label="second"
-         android:parentActivityName="su.harbour.hdcalcul.MainActivity" >
-         <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="su.harbour.hdcalcul.MainActivity" />
-      </activity>
+      <activity android:name="su.harbour.hdcalcul.DopActivity" android:label="2" />
    </application>
    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

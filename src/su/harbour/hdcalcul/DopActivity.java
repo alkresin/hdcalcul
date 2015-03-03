@@ -2,20 +2,19 @@ package su.harbour.hdcalcul;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
+import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 import su.harbour.hDroidGUI.Harbour;
 
-public class MainActivity extends Activity {
+public class DopActivity extends Activity {
 
-   @Override
-   public void onCreate(Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-      MainApp.harb.setDopClass( DopActivity.class );
-      setContentView( MainApp.harb.createAct( this ) );
-   }
+        setContentView( MainApp.harb.createAct( this ) );
+    }
 
    @Override
    protected void onResume() {

@@ -7,13 +7,20 @@
 FUNCTION HDroidMain
 
    LOCAL oActivity, oFont, oLayV, oLayH1, oBtn1, oBtn2, oBtn3, oEdit1, oText1
-   PUBLIC aHistory := Array( HISTORY_SIZE_MAX ), nHistLen := 0, nHistCurr := 1
+   PUBLIC aHistory, nHistLen, nHistCurr
+
+   IF Valtype( aHistory ) != "A"
+      aHistory := Array( HISTORY_SIZE_MAX )
+      nHistLen := 0
+      nHistCurr := 1
+   ENDIF
 
    PREPARE FONT oFont HEIGHT 12
    INIT WINDOW oActivity TITLE "Calculator"
 
    MENU
       MENUITEM "Version" ACTION hd_MsgInfo(hb_Version())
+      MENUITEM "Help" ACTION FHelp()
       MENUITEM "Exit" ACTION hd_calljava_s_v( "exit:")
    ENDMENU
       BEGIN LAYOUT oLayV BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT
@@ -58,6 +65,7 @@ STATIC Function OnBtnCalc( oEdit1, oText1 )
    LOCAL s, xRez, bOldError, lRes := .T., n, i, cname, cType
    STATIC aVars := Nil
 
+   hd_wrlog( "OnBtnCalc-1" )
    IF !Empty( aVars )
       FOR i := 1 to Len( aVars )
          __mvPublic( aVars[i,1] )
@@ -110,3 +118,17 @@ STATIC Function OnKey( nKey, oEdit1, oText1 )
    ENDIF
 
    RETURN "0"
+
+STATIC Function FHelp()
+   Local oWnd, oLayV, oText1
+
+   INIT WINDOW oWnd TITLE "Help"
+
+      BEGIN LAYOUT oLayV BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT
+
+         TEXTVIEW oText1 TEXT "Calculator help" TEXTCOLOR 10485760 BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT SCROLL
+   
+      END LAYOUT oLayV
+
+   hd_calljava_s_v( oWnd:ToString(), "activ" )
+   RETURN "1"
