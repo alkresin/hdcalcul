@@ -65,7 +65,6 @@ STATIC Function OnBtnCalc( oEdit1, oText1 )
    LOCAL s, xRez, bOldError, lRes := .T., n, i, cname, cType
    STATIC aVars := Nil
 
-   hd_wrlog( "OnBtnCalc-1" )
    IF !Empty( aVars )
       FOR i := 1 to Len( aVars )
          __mvPublic( aVars[i,1] )

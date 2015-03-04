@@ -3,24 +3,28 @@ package su.harbour.hdcalcul;
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Context;
+import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import su.harbour.hDroidGUI.Harbour;
 
 public class DopActivity extends Activity {
 
+    private static View mainView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView( MainApp.harb.createAct( this ) );
+        mainView = MainApp.harb.createAct( this );
+        setContentView( mainView );
     }
 
    @Override
    protected void onResume() {
        super.onResume();
 
-      MainApp.harb.setContext( this );
+      MainApp.harb.setContext( this, mainView );
    }
 
    @Override

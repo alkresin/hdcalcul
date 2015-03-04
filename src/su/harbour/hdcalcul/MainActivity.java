@@ -9,19 +9,22 @@ import su.harbour.hDroidGUI.Harbour;
 
 public class MainActivity extends Activity {
 
+   private static View mainView;
+
    @Override
    public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
 
       MainApp.harb.setDopClass( DopActivity.class );
-      setContentView( MainApp.harb.createAct( this ) );
+      mainView = MainApp.harb.createAct( this );
+      setContentView( mainView );
    }
 
    @Override
    protected void onResume() {
        super.onResume();
 
-      MainApp.harb.setContext( this );
+      MainApp.harb.setContext( this, mainView );
    }
 
    @Override
