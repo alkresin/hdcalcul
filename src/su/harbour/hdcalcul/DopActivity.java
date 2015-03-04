@@ -11,12 +11,15 @@ import su.harbour.hDroidGUI.Harbour;
 public class DopActivity extends Activity {
 
     private static View mainView;
+    public static String sId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mainView = MainApp.harb.createAct( this );
+        sId = MainApp.harb.sActId;
+        //MainApp.harb.hlog("Dop - onCreate "+sId);
         setContentView( mainView );
     }
 
@@ -24,6 +27,7 @@ public class DopActivity extends Activity {
    protected void onResume() {
        super.onResume();
 
+      //MainApp.harb.hlog("Dop - onResume");
       MainApp.harb.setContext( this, mainView );
    }
 
@@ -31,7 +35,8 @@ public class DopActivity extends Activity {
    protected void onDestroy() {
        super.onDestroy();
 
-       MainApp.harb.closeAct();
+       //MainApp.harb.hlog("Dop - onDestroy "+sId);
+       MainApp.harb.closeAct( sId );
    }
 
     @Override
