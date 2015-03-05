@@ -6,21 +6,25 @@ import android.content.Context;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.Intent;
 import su.harbour.hDroidGUI.Harbour;
 
 public class DopActivity extends Activity {
 
     private static View mainView;
-    public static String sId;
+    private static String sId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mainView = MainApp.harb.createAct( this );
-        sId = MainApp.harb.sActId;
-        //MainApp.harb.hlog("Dop - onCreate "+sId);
-        setContentView( mainView );
+       Intent intent = getIntent();   
+       String sAct = intent.getStringExtra("sact");
+
+       mainView = MainApp.harb.createAct( this, sAct );
+       sId = MainApp.harb.sActId;
+       //MainApp.harb.hlog("Dop - onCreate "+sId+sAct);
+       setContentView( mainView );
     }
 
    @Override

@@ -10,7 +10,6 @@ import su.harbour.hDroidGUI.Harbour;
 public class MainActivity extends Activity {
 
    private static View mainView;
-   public static String sId = "0";
 
    @Override
    public void onCreate(Bundle savedInstanceState) {
@@ -18,7 +17,7 @@ public class MainActivity extends Activity {
 
       //MainApp.harb.hlog("Main - onCreate");
       MainApp.harb.setDopClass( DopActivity.class );
-      mainView = MainApp.harb.createAct( this );
+      mainView = MainApp.harb.createAct( this, null );
       setContentView( mainView );
    }
 

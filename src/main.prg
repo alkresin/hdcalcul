@@ -19,7 +19,7 @@ FUNCTION HDroidMain
    INIT WINDOW oActivity TITLE "Calculator"
 
    MENU
-      MENUITEM "Version" ACTION hd_MsgInfo(hb_Version())
+      MENUITEM "Version" ACTION hd_MsgInfo(hd_Version()+Chr(10)+hb_Version())
       MENUITEM "Help" ACTION FHelp()
       MENUITEM "Exit" ACTION hd_calljava_s_v( "exit:")
    ENDMENU
@@ -42,7 +42,9 @@ FUNCTION HDroidMain
    
       END LAYOUT oLayV
 
-   RETURN oActivity
+   ACTIVATE WINDOW oActivity
+
+   RETURN Nil
 
 STATIC Function OnBtnHist( lBack, oEdit1 )
 
@@ -112,7 +114,7 @@ STATIC Function OnBtnCalc( oEdit1, oText1 )
 
 STATIC Function OnKey( nKey, oEdit1, oText1 )
 
-   IF nKey == 66     
+   IF nKey == 66
       RETURN OnBtnCalc( oEdit1, oText1 )
    ENDIF
 
@@ -120,14 +122,20 @@ STATIC Function OnKey( nKey, oEdit1, oText1 )
 
 STATIC Function FHelp()
    Local oWnd, oLayV, oText1
+   Local s := "Calculator help" + Chr(10) + Chr(10) + ;
+      "Use '<' and '>' buttons to navigate via calculattions history." + Chr(10) + Chr(10) + ;
+      "You may create variables, assigning values to them, and then use in expressions:"+ Chr(10) + ;
+      "   arr := Directory()" + Chr(10) + ;
+      "   Len(arr)"
 
    INIT WINDOW oWnd TITLE "Help"
 
       BEGIN LAYOUT oLayV BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT
 
-         TEXTVIEW oText1 TEXT "Calculator help" TEXTCOLOR 10485760 BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT SCROLL
+         TEXTVIEW oText1 TEXT s TEXTCOLOR 10485760 BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT SCROLL
    
       END LAYOUT oLayV
 
-   hd_calljava_s_v( oWnd:ToString(), "activ" )
+   ACTIVATE WINDOW oWnd
+
    RETURN "1"
