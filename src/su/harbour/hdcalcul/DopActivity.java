@@ -11,8 +11,8 @@ import su.harbour.hDroidGUI.Harbour;
 
 public class DopActivity extends Activity {
 
-    private static View mainView;
-    private static String sId;
+    private View mainView;
+    private String sId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,11 +20,12 @@ public class DopActivity extends Activity {
 
        Intent intent = getIntent();   
        String sAct = intent.getStringExtra("sact");
+       sId = intent.getStringExtra("sid");
 
        mainView = MainApp.harb.createAct( this, sAct );
-       sId = MainApp.harb.sActId;
        //MainApp.harb.hlog("Dop - onCreate "+sId+sAct);
        setContentView( mainView );
+       MainApp.harb.hrbCall( "HD_INITWINDOW",sId );
     }
 
    @Override

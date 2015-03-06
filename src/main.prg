@@ -4,12 +4,12 @@
 
 #define HISTORY_SIZE_MAX   32
 
-FUNCTION HDroidMain
+FUNCTION HDroidMain( lFirst )
 
-   LOCAL oActivity, oFont, oLayV, oLayH1, oBtn1, oBtn2, oBtn3, oEdit1, oText1
+   LOCAL oActivity, oFont, oLayV, oLayH1, oBtn1, oBtn2, oBtn3, oEdit1, oText0
    PUBLIC aHistory, nHistLen, nHistCurr
 
-   IF Valtype( aHistory ) != "A"
+   IF lFirst
       aHistory := Array( HISTORY_SIZE_MAX )
       nHistLen := 0
       nHistCurr := 1
@@ -21,26 +21,27 @@ FUNCTION HDroidMain
    MENU
       MENUITEM "Version" ACTION hd_MsgInfo(hd_Version()+Chr(10)+hb_Version())
       MENUITEM "Help" ACTION FHelp()
-      MENUITEM "Exit" ACTION hd_calljava_s_v( "exit:")
+      MENUITEM "Exit" ACTION hd_MsgYesNo( "Really exit?", {|o|FExit(o)} )
    ENDMENU
-      BEGIN LAYOUT oLayV BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT
 
-         EDITBOX oEdit1 HINT "Input an expression" ON KEYDOWN {|n|onKey(n,oEdit1,oText1)}
-               
-         BEGIN LAYOUT oLayH1 HORIZONTAL SIZE MATCH_PARENT,32
+   BEGIN LAYOUT oLayV BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT
 
-         BUTTON oBtn2 TEXT " < " TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
-               ON CLICK {||onBtnHist(.T.,oEdit1)}
-         BUTTON oBtn1 TEXT "Ok" TEXTCOLOR 255 SIZE 0,MATCH_PARENT FONT oFont ;
-               ON CLICK {||onBtnCalc(oEdit1,oText1)}
-         BUTTON oBtn3 TEXT " > " TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
-               ON CLICK {||onBtnHist(.F.,oEdit1)}
+      EDITBOX oEdit1 HINT "Input an expression" ON KEYDOWN {|n|onKey(n,oEdit1,oText0)}
+            
+      BEGIN LAYOUT oLayH1 HORIZONTAL SIZE MATCH_PARENT,32
 
-         END LAYOUT oLayH1
+      BUTTON oBtn2 TEXT " < " TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+            ON CLICK {||onBtnHist(.T.,oEdit1)}
+      BUTTON oBtn1 TEXT "Ok" TEXTCOLOR 255 SIZE 0,MATCH_PARENT FONT oFont ;
+            ON CLICK {||onBtnCalc(oEdit1,oText0)}
+      BUTTON oBtn3 TEXT " > " TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+            ON CLICK {||onBtnHist(.F.,oEdit1)}
 
-         TEXTVIEW oText1 TEXTCOLOR 10485760 BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT SCROLL
-   
-      END LAYOUT oLayV
+      END LAYOUT oLayH1
+
+      TEXTVIEW oText0 TEXTCOLOR 10485760 BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT SCROLL
+
+   END LAYOUT oLayV
 
    ACTIVATE WINDOW oActivity
 
@@ -123,19 +124,48 @@ STATIC Function OnKey( nKey, oEdit1, oText1 )
 STATIC Function FHelp()
    Local oWnd, oLayV, oText1
    Local s := "Calculator help" + Chr(10) + Chr(10) + ;
-      "Use '<' and '>' buttons to navigate via calculattions history." + Chr(10) + Chr(10) + ;
+      "Use '<' and '>' buttons to navigate via calculations history." + Chr(10) + Chr(10) + ;
       "You may create variables, assigning values to them, and then use in expressions:"+ Chr(10) + ;
       "   arr := Directory()" + Chr(10) + ;
       "   Len(arr)"
 
-   INIT WINDOW oWnd TITLE "Help"
+   INIT WINDOW oWnd TITLE "Help" ON INIT {||oText1:SetText(s)}
 
-      BEGIN LAYOUT oLayV BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT
+   MENU
+      MENUITEM "Test" ACTION FHelp2()
+      MENUITEM "Exit" ACTION hd_calljava_s_v( "exit:")
+   ENDMENU
 
-         TEXTVIEW oText1 TEXT s TEXTCOLOR 10485760 BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT SCROLL
-   
-      END LAYOUT oLayV
+   BEGIN LAYOUT oLayV BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT
+
+      TEXTVIEW oText1 TEXTCOLOR 10485760 BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT SCROLL
+
+   END LAYOUT oLayV
 
    ACTIVATE WINDOW oWnd
+
+   RETURN "1"
+
+STATIC Function FHelp2()
+   Local oWnd, oLayV, oText1
+   Local s := "Just a test!"
+
+   INIT WINDOW oWnd TITLE "Test"
+
+   BEGIN LAYOUT oLayV BACKCOLOR 8706030 SIZE MATCH_PARENT,MATCH_PARENT
+
+      TEXTVIEW oText1 TEXT s TEXTCOLOR 0 BACKCOLOR 8706030 SIZE MATCH_PARENT,MATCH_PARENT SCROLL
+
+   END LAYOUT oLayV
+
+   ACTIVATE WINDOW oWnd
+
+   RETURN "1"
+
+STATIC Function FExit( oDlg )
+
+   IF oDlg:nres == 1
+      hd_calljava_s_v( "exit:")
+   ENDIF
 
    RETURN "1"

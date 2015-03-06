@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
       MainApp.harb.setDopClass( DopActivity.class );
       mainView = MainApp.harb.createAct( this, null );
       setContentView( mainView );
+      MainApp.harb.hrbCall( "HD_INITWINDOW","0" );
    }
 
    @Override
