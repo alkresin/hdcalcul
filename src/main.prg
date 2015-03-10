@@ -4,6 +4,8 @@
 
 #define HISTORY_SIZE_MAX   32
 
+Memvar aHistory, nHistLen, nHistCurr
+
 FUNCTION HDroidMain( lFirst )
 
    LOCAL oActivity, oFont, oLayV, oLayH1, oBtn1, oBtn2, oBtn3, oEdit1, oText0
@@ -19,7 +21,7 @@ FUNCTION HDroidMain( lFirst )
    INIT WINDOW oActivity TITLE "Calculator"
 
    MENU
-      MENUITEM "Version" ACTION hd_MsgInfo(hd_Version()+Chr(10)+hb_Version())
+      MENUITEM "Version" ACTION Version()
       MENUITEM "Help" ACTION FHelp()
       MENUITEM "Exit" ACTION hd_MsgYesNo( "Really exit?", {|o|FExit(o)} )
    ENDMENU
@@ -162,10 +164,23 @@ STATIC Function FHelp2()
 
    RETURN "1"
 
-STATIC Function FExit( oDlg )
+STATIC Function FExit( o )
 
-   IF oDlg:nres == 1
+   IF o:nres == 1
       hd_calljava_s_v( "exit:")
    ENDIF
-
    RETURN "1"
+
+STATIC FUNCTION VERSION()
+
+   LOCAL oTimer
+
+   SET TIMER oTimer VALUE 1000 ACTION {||Ftm()}
+   hd_MsgInfo(hd_Version()+Chr(10)+hb_Version(),{||oTimer:End()})
+
+   RETURN Nil
+
+STATIC FUNCTION Ftm()
+   hd_wrlog( str(seconds()) )
+   RETURN Nil
+
