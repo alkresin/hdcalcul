@@ -31,30 +31,41 @@ FUNCTION HDroidMain( lFirst )
 
       EDITBOX oEdit1 HINT "Input an expression" ON KEYDOWN {|n|onKey(n,oEdit1,oText0)}
             
-      BEGIN LAYOUT oLayH1 HORIZONTAL SIZE MATCH_PARENT,32
+      BEGIN LAYOUT oLayH1 HORIZONTAL SIZE MATCH_PARENT,28
 
       BUTTON oBtn2 TEXT "<<" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnHist(.T.,oEdit1)}
+      oBtn2:nPaddL := oBtn2:nMarginL := 0
       BUTTON oBtn4 TEXT "+" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("+",oEdit1)}
+      oBtn4:nPaddL := oBtn4:nMarginL := 0
       BUTTON oBtn5 TEXT "-" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("-",oEdit1)}
+      oBtn5:nPaddL := oBtn5:nMarginL := 0
       BUTTON oBtn6 TEXT "*" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("*",oEdit1)}
+      oBtn6:nPaddL := oBtn6:nMarginL := 0
       BUTTON oBtn7 TEXT "/" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("/",oEdit1)}
+      oBtn7:nPaddL := oBtn7:nMarginL := 0
       BUTTON oBtn1 TEXT "=" TEXTCOLOR 255 SIZE 0,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnCalc(oEdit1,oText0)}
+      oBtn1:nPaddL := oBtn1:nMarginL := 0
       BUTTON oBtn8 TEXT "(" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("(",oEdit1)}
+      oBtn8:nPaddL := oBtn8:nMarginL := 0
       BUTTON oBtn9 TEXT ")" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb(")",oEdit1)}
+      oBtn9:nPaddL := oBtn9:nMarginL := 0
       BUTTON oBtn10 TEXT "[" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("[",oEdit1)}
+      oBtn10:nPaddL := oBtn10:nMarginL := 0
       BUTTON oBtn11 TEXT "]" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("]",oEdit1)}
+      oBtn11:nPaddL := oBtn11:nMarginL := 0
       BUTTON oBtn3 TEXT ">>" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnHist(.F.,oEdit1)}
+      oBtn3:nPaddL := oBtn3:nMarginL := 0
 
       END LAYOUT oLayH1
 
