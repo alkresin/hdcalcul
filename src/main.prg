@@ -8,7 +8,8 @@ Memvar aHistory, nHistLen, nHistCurr
 
 FUNCTION HDroidMain( lFirst )
 
-   LOCAL oActivity, oFont, oLayV, oLayH1, oBtn1, oBtn2, oBtn3, oEdit1, oText0
+   LOCAL oActivity, oFont, oLayV, oLayH1, oEdit1, oText0
+   LOCAL oBtn1, oBtn2, oBtn3, oBtn4, oBtn5, oBtn6, oBtn7, oBtn8, oBtn9, oBtn10, oBtn11
    PUBLIC aHistory, nHistLen, nHistCurr
 
    IF lFirst
@@ -18,7 +19,7 @@ FUNCTION HDroidMain( lFirst )
    ENDIF
 
    PREPARE FONT oFont HEIGHT 12
-   INIT WINDOW oActivity TITLE "Calculator"
+   INIT WINDOW oActivity TITLE "Calculator" //"$$name1"
 
    MENU
       MENUITEM "Version" ACTION Version()
@@ -32,11 +33,27 @@ FUNCTION HDroidMain( lFirst )
             
       BEGIN LAYOUT oLayH1 HORIZONTAL SIZE MATCH_PARENT,32
 
-      BUTTON oBtn2 TEXT " < " TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn2 TEXT "<<" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnHist(.T.,oEdit1)}
-      BUTTON oBtn1 TEXT "Ok" TEXTCOLOR 255 SIZE 0,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn4 TEXT "+" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+            ON CLICK {||onBtnSymb("+",oEdit1)}
+      BUTTON oBtn5 TEXT "-" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+            ON CLICK {||onBtnSymb("-",oEdit1)}
+      BUTTON oBtn6 TEXT "*" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+            ON CLICK {||onBtnSymb("*",oEdit1)}
+      BUTTON oBtn7 TEXT "/" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+            ON CLICK {||onBtnSymb("/",oEdit1)}
+      BUTTON oBtn1 TEXT "=" TEXTCOLOR 255 SIZE 0,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnCalc(oEdit1,oText0)}
-      BUTTON oBtn3 TEXT " > " TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn8 TEXT "(" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+            ON CLICK {||onBtnSymb("(",oEdit1)}
+      BUTTON oBtn9 TEXT ")" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+            ON CLICK {||onBtnSymb(")",oEdit1)}
+      BUTTON oBtn10 TEXT "[" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+            ON CLICK {||onBtnSymb("[",oEdit1)}
+      BUTTON oBtn11 TEXT "]" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+            ON CLICK {||onBtnSymb("]",oEdit1)}
+      BUTTON oBtn3 TEXT ">>" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnHist(.F.,oEdit1)}
 
       END LAYOUT oLayH1
@@ -63,6 +80,15 @@ STATIC Function OnBtnHist( lBack, oEdit1 )
          oEdit1:SetText( "" )
       ENDIF
    ENDIF
+
+   RETURN "1"
+
+STATIC Function OnBtnSymb( cSymb, oEdit1 )
+
+   LOCAL nPos := oEdit1:GetCursorPos(), cText := oEdit1:GetText()
+
+   oEdit1:SetText( hb_utf8Left( cText,nPos ) + cSymb + hb_utf8Substr( cText,nPos+1 ) )
+   oEdit1:SetCursorPos( nPos+1 )
 
    RETURN "1"
 
@@ -124,12 +150,15 @@ STATIC Function OnKey( nKey, oEdit1, oText1 )
    RETURN "0"
 
 STATIC Function FHelp()
-   Local oWnd, oLayV, oText1
+   Local oWnd, oLayV, oText1, oNote
    Local s := "Calculator help" + Chr(10) + Chr(10) + ;
       "Use '<' and '>' buttons to navigate via calculations history." + Chr(10) + Chr(10) + ;
       "You may create variables, assigning values to them, and then use in expressions:"+ Chr(10) + ;
       "   arr := Directory()" + Chr(10) + ;
       "   Len(arr)"
+
+   // INIT NOTIFICATION oNote TITLE "Test" TEXT "Notification test"
+   // oNote:Run()
 
    INIT WINDOW oWnd TITLE "Help" ON INIT {||oText1:SetText(s)}
 
