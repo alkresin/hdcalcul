@@ -1,7 +1,7 @@
 package su.harbour.hdcalcul;
 
 import android.app.Application;
-import su.harbour.hDroidGUI.Harbour;
+import su.harbour.hDroidGUI.*;
 
 public class MainApp extends Application {
 

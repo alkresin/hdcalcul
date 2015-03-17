@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import su.harbour.hDroidGUI.Harbour;
+import su.harbour.hDroidGUI.*;
 
 public class MainActivity extends Activity {
 
