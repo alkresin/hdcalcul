@@ -10,6 +10,7 @@ FUNCTION HDroidMain( lFirst )
 
    LOCAL oActivity, oFont, oLayV, oLayH1, oEdit1, oText0
    LOCAL oBtn1, oBtn2, oBtn3, oBtn4, oBtn5, oBtn6, oBtn7, oBtn8, oBtn9, oBtn10, oBtn11
+   LOCAL oStyleN, oStyleP, oStyleText, oStyleEdi, cWhite := "#FFFFFF"
    PUBLIC aHistory, nHistLen, nHistCurr
 
    IF lFirst
@@ -19,7 +20,12 @@ FUNCTION HDroidMain( lFirst )
    ENDIF
 
    PREPARE FONT oFont HEIGHT 12
+   INIT STYLE oStyleN COLORS 0xff255779,0xff3e7492,0xffa6c0cd ORIENT 1 CORNERS 8
+   INIT STYLE oStyleP COLORS 0xff255779,0xff3e7492,0xffa6c0cd ORIENT 6 CORNERS 8
+   INIT STYLE oStyleText COLORS 0xff3e7492,0xffa6c0cd ORIENT 1
+
    INIT WINDOW oActivity TITLE "Calculator" //"$$name1"
+   //oActivity:oStyleHead := oStyleText
 
    MENU
       MENUITEM "Version" ACTION Version()
@@ -27,49 +33,54 @@ FUNCTION HDroidMain( lFirst )
       MENUITEM "Exit" ACTION hd_MsgYesNo( "Really exit?", {|o|FExit(o)} )
    ENDMENU
 
-   BEGIN LAYOUT oLayV BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT
+   BEGIN LAYOUT oLayV BACKCOLOR 10928333 SIZE MATCH_PARENT,MATCH_PARENT
 
-      EDITBOX oEdit1 HINT "Input an expression" ON KEYDOWN {|n|onKey(n,oEdit1,oText0)}
+      EDITBOX oEdit1 HINT "Input an expression" BACKCOLOR 10928333 ON KEYDOWN {|n|onKey(n,oEdit1,oText0)}
             
       BEGIN LAYOUT oLayH1 HORIZONTAL SIZE MATCH_PARENT,28
 
-      BUTTON oBtn2 TEXT "<<" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn2 TEXT "<<" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnHist(.T.,oEdit1)}
-      oBtn2:nPaddL := oBtn2:nMarginL := 0
-      BUTTON oBtn4 TEXT "+" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn4 TEXT "+" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("+",oEdit1)}
-      oBtn4:nPaddL := oBtn4:nMarginL := 0
-      BUTTON oBtn5 TEXT "-" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn5 TEXT "-" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("-",oEdit1)}
-      oBtn5:nPaddL := oBtn5:nMarginL := 0
-      BUTTON oBtn6 TEXT "*" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn6 TEXT "*" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("*",oEdit1)}
-      oBtn6:nPaddL := oBtn6:nMarginL := 0
-      BUTTON oBtn7 TEXT "/" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn7 TEXT "/" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("/",oEdit1)}
-      oBtn7:nPaddL := oBtn7:nMarginL := 0
-      BUTTON oBtn1 TEXT "=" TEXTCOLOR 255 SIZE 0,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn1 TEXT "=" TEXTCOLOR cWhite SIZE 0,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnCalc(oEdit1,oText0)}
-      oBtn1:nPaddL := oBtn1:nMarginL := 0
-      BUTTON oBtn8 TEXT "(" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn8 TEXT "(" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("(",oEdit1)}
-      oBtn8:nPaddL := oBtn8:nMarginL := 0
-      BUTTON oBtn9 TEXT ")" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn9 TEXT ")" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb(")",oEdit1)}
-      oBtn9:nPaddL := oBtn9:nMarginL := 0
-      BUTTON oBtn10 TEXT "[" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn10 TEXT "[" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("[",oEdit1)}
-      oBtn10:nPaddL := oBtn10:nMarginL := 0
-      BUTTON oBtn11 TEXT "]" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn11 TEXT "]" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("]",oEdit1)}
-      oBtn11:nPaddL := oBtn11:nMarginL := 0
-      BUTTON oBtn3 TEXT ">>" TEXTCOLOR 255 SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn3 TEXT ">>" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnHist(.F.,oEdit1)}
-      oBtn3:nPaddL := oBtn3:nMarginL := 0
+
+      oBtn2:oStyle := oBtn4:oStyle := oBtn5:oStyle := oBtn6:oStyle := oBtn7:oStyle := ;
+         oBtn1:oStyle := oBtn8:oStyle := oBtn9:oStyle := oBtn10:oStyle := oBtn11:oStyle := ;
+         oBtn3:oStyle := { oStyleN,,oStyleP }
+      oBtn2:nMarginL := oBtn2:nMarginR := oBtn4:nMarginL := oBtn4:nMarginR := ;
+         oBtn5:nMarginL := oBtn5:nMarginR := oBtn6:nMarginL := oBtn6:nMarginR := ;
+         oBtn7:nMarginL := oBtn7:nMarginR := oBtn1:nMarginL := oBtn1:nMarginR := ;
+         oBtn8:nMarginL := oBtn8:nMarginR := oBtn19nMarginL := oBtn9:nMarginR := ;
+         oBtn10:nMarginL := oBtn10:nMarginR := oBtn11:nMarginL := oBtn11:nMarginR := ;
+         oBtn3:nMarginL := oBtn3:nMarginR := 1
+
+       hd_setPadding( oBtn2, 8,2 ) ; hd_setPadding( oBtn4, 8,2 ) ; hd_setPadding( oBtn5, 8,2 )
+       hd_setPadding( oBtn6, 8,2 ) ; hd_setPadding( oBtn7, 8,2 ) ; hd_setPadding( oBtn1, 8,2 )
+       hd_setPadding( oBtn8, 8,2 ) ; hd_setPadding( oBtn9, 8,2 ) ; hd_setPadding( oBtn10, 8,2 )
+       hd_setPadding( oBtn11, 8,2 ) ; hd_setPadding( oBtn3, 8,2 )
 
       END LAYOUT oLayH1
 
-      TEXTVIEW oText0 TEXTCOLOR 10485760 BACKCOLOR "#FFFFFF" SIZE MATCH_PARENT,MATCH_PARENT VSCROLL
+      TEXTVIEW oText0 TEXTCOLOR 0 SIZE MATCH_PARENT,MATCH_PARENT VSCROLL
+      oText0:oStyle := oStyleText
 
    END LAYOUT oLayV
 
