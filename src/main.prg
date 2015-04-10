@@ -35,31 +35,32 @@ FUNCTION HDroidMain( lFirst )
 
    BEGIN LAYOUT oLayV BACKCOLOR 10928333 SIZE MATCH_PARENT,MATCH_PARENT
 
-      EDITBOX oEdit1 HINT "Input an expression" BACKCOLOR 10928333 ON KEYDOWN {|n|onKey(n,oEdit1,oText0)}
+      EDITBOX oEdit1 HINT "Input an expression" TEXTCOLOR 0 BACKCOLOR 10928333 ;
+         ON KEYDOWN {|n|onKey(n,oEdit1,oText0)}
             
       BEGIN LAYOUT oLayH1 HORIZONTAL SIZE MATCH_PARENT,28
 
-      BUTTON oBtn2 TEXT "<<" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn2 TEXT "<<" TEXTCOLOR cWhite SIZE 32,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnHist(.T.,oEdit1)}
-      BUTTON oBtn4 TEXT "+" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn4 TEXT "+" TEXTCOLOR cWhite SIZE 26,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("+",oEdit1)}
-      BUTTON oBtn5 TEXT "-" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn5 TEXT "-" TEXTCOLOR cWhite SIZE 26,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("-",oEdit1)}
-      BUTTON oBtn6 TEXT "*" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn6 TEXT "*" TEXTCOLOR cWhite SIZE 26,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("*",oEdit1)}
-      BUTTON oBtn7 TEXT "/" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn7 TEXT "/" TEXTCOLOR cWhite SIZE 26,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("/",oEdit1)}
       BUTTON oBtn1 TEXT "=" TEXTCOLOR cWhite SIZE 0,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnCalc(oEdit1,oText0)}
-      BUTTON oBtn8 TEXT "(" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn8 TEXT "(" TEXTCOLOR cWhite SIZE 26,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("(",oEdit1)}
-      BUTTON oBtn9 TEXT ")" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn9 TEXT ")" TEXTCOLOR cWhite SIZE 26,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb(")",oEdit1)}
-      BUTTON oBtn10 TEXT "[" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn10 TEXT "[" TEXTCOLOR cWhite SIZE 26,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("[",oEdit1)}
-      BUTTON oBtn11 TEXT "]" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn11 TEXT "]" TEXTCOLOR cWhite SIZE 26,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnSymb("]",oEdit1)}
-      BUTTON oBtn3 TEXT ">>" TEXTCOLOR cWhite SIZE WRAP_CONTENT,MATCH_PARENT FONT oFont ;
+      BUTTON oBtn3 TEXT ">>" TEXTCOLOR cWhite SIZE 32,MATCH_PARENT FONT oFont ;
             ON CLICK {||onBtnHist(.F.,oEdit1)}
 
       oBtn2:oStyle := oBtn4:oStyle := oBtn5:oStyle := oBtn6:oStyle := oBtn7:oStyle := ;

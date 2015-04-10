@@ -3,6 +3,7 @@
       package="su.harbour.hdcalcul"
       android:versionCode="1"
       android:versionName="1.5">
+   <uses-sdk android:minSdkVersion="11" />
    <application android:label="hdcalcul"
          android:name="su.harbour.hdcalcul.MainApp">
       <activity android:name="MainActivity"
