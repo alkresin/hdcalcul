@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export HDROIDGUI=/apps/android/projects/hDroidGUI
+export HDROIDGUI=/home/alkresin/apps/android/projects/HDroidGUI
 . $HDROIDGUI/setenv.sh
 
 export APPNAME=hdcalcul

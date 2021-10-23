@@ -2,7 +2,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := harbour
-LOCAL_SRC_FILES := $(HDROIDGUI)/lib/armeabi/libharbour.so
+LOCAL_SRC_FILES := $(HDROIDGUI)/lib/$(NDK_TARGET)/libharbour.so
 LOCAL_EXPORT_C_INCLUDES := $(HRB_INC)
 include $(PREBUILT_SHARED_LIBRARY)
 
