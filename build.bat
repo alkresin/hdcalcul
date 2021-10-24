@@ -7,7 +7,7 @@
 @set NDK_LIBS_OUT=lib
 @set SRC_FILES=main.c
 %NDK_HOME%\prebuilt\windows-x86_64\bin\make.exe -f %NDK_HOME%/build/core/build-local.mk %* >a1.out 2>a2.out
-@if exist lib\$NDK_TARGET\libh4droid.so goto comp
+@if exist lib\%NDK_TARGET%\libh4droid.so goto comp
 @echo Errors while compiling C sources
 @goto end
 
@@ -26,10 +26,10 @@ call %BUILD_TOOLS%/dx.bat --dex --output=bin/classes.dex obj %HDROIDGUI%\libs
 @rem create APK
 call %BUILD_TOOLS%/aapt.exe package -f -M AndroidManifest.xml -S res -I %ANDROID_JAR% -F bin/%APPNAME%.unsigned.apk bin
 
-call %BUILD_TOOLS%/aapt.exe add %DEV_HOME%/bin/%APPNAME%.unsigned.apk lib/$NDK_TARGET/libharbour.so
+call %BUILD_TOOLS%/aapt.exe add %DEV_HOME%/bin/%APPNAME%.unsigned.apk lib/%NDK_TARGET%/libharbour.so
 @if errorlevel 1 goto end
 
-call %BUILD_TOOLS%/aapt.exe add %DEV_HOME%/bin/%APPNAME%.unsigned.apk lib/$NDK_TARGET/libh4droid.so
+call %BUILD_TOOLS%/aapt.exe add %DEV_HOME%/bin/%APPNAME%.unsigned.apk lib/%NDK_TARGET%/libh4droid.so
 @rem sign APK
 call %JAVA_HOME%/bin/keytool -genkey -v -keystore myrelease.keystore -alias key2 -keyalg RSA -keysize 2048 -validity 10000 -storepass calcpass -keypass calcpass -dname "CN=Alex K, O=Harbour, C=RU"
 call %JAVA_HOME%/bin/jarsigner -sigalg SHA1withRSA -digestalg SHA1 -keystore myrelease.keystore -storepass calcpass -keypass calcpass -signedjar bin/%APPNAME%.signed.apk bin/%APPNAME%.unsigned.apk key2
